@@ -3,8 +3,11 @@ sys.path.insert(0, '../lib')
 import vrep
 
 class Robot():
-	def __init__(self, name):
+	def __init__(self, name, left_motor, right_motor, sensor):
 		self.name = name
+		self.left_motor = left_motor
+		self.right_motor = right_motor
+		self.sensor = sensor 
 		self.ROBOT_WIDTH = 0.381
 		self.WHEEL_RADIUS = 0.195/2.0
 		self.SERVER_IP = "127.0.0.1"
@@ -51,7 +54,7 @@ class Robot():
 		us_handle = []
 		sensor_name=[]
 		for i in range(0,16):
-			sensor_name.append("Pioneer_p3dx_ultrasonicSensor" + str(i+1))
+			sensor_name.append(self.sensor + str(i+1))
 			res, handle = vrep.simxGetObjectHandle(self.clientID, sensor_name[i], vrep.simx_opmode_oneshot_wait)
 			if(res != vrep.simx_return_ok):
 				print ("\033[93m "+ sensor_name[i] + " not connected.")
@@ -82,13 +85,13 @@ class Robot():
 		        A dictionary that contains both motors handle ID.
 		"""
 
-		res, left_handle = vrep.simxGetObjectHandle(self.clientID, "Pioneer_p3dx_leftMotor", vrep.simx_opmode_oneshot_wait)
+		res, left_handle = vrep.simxGetObjectHandle(self.clientID, self.left_motor, vrep.simx_opmode_oneshot_wait)
 		if(res != vrep.simx_return_ok):
 			print("\033[93m Left motor not connected.")
 		else:
 			print("\033[92m Left motor connected.")
 
-		res, right_handle = vrep.simxGetObjectHandle(self.clientID, "Pioneer_p3dx_rightMotor", vrep.simx_opmode_oneshot_wait)
+		res, right_handle = vrep.simxGetObjectHandle(self.clientID, self.right_motor, vrep.simx_opmode_oneshot_wait)
 		if(res != vrep.simx_return_ok):
 			print("\033[93m Right motor not connected.")
 		else:
