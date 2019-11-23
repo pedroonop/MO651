@@ -3,8 +3,7 @@ sys.path.insert(0, '../lib')
 import vrep
 
 class Robot():
-	def __init__(self, name):
-		self.name = name
+	def __init__(self):
 		self.ROBOT_WIDTH = 0.381
 		self.WHEEL_RADIUS = 0.195/2.0
 		self.SERVER_IP = "127.0.0.1"
@@ -102,7 +101,7 @@ class Robot():
 			Returns:
 				robot_handle: Contains the robot handle ID.
 		"""
-		res, robot_handle = vrep.simxGetObjectHandle(self.clientID, self.name, vrep.simx_opmode_oneshot_wait)
+		res, robot_handle = vrep.simxGetObjectHandle(self.clientID, "Pioneer_p3dx", vrep.simx_opmode_oneshot_wait)
 		if(res != vrep.simx_return_ok):
 			print("\033[93m Robot not connected.")
 		else:
