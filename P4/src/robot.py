@@ -39,6 +39,19 @@ class Robot():
 		"""
 		return vrep.simxGetConnectionId(self.clientID)
 
+	def start_simulation(self):
+		vrep.simxSynchronous(self.clientID, True)
+		vrep.simxStartSimulation(self.clientID, vrep.simx_opmode_blocking)
+
+	def call_childscript_function(self, in_tuple):
+		vrep.simxCallScriptFunction(self.clientID,
+			'Pioneer_p3dx' + self.id, vrep.sim_scripttype_childscript, 'reset_function',
+			in_tuple[0], in_tuple[1], in_tuple[2], in_tuple[3],
+			vrep.simx_opmode_blocking)
+
+	def step_simulation(self):
+		vrep.simxSynchronousTrigger(self.clientID)
+
 	def start_sensors(self):
 		"""
 			Function to start the sensors.
