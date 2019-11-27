@@ -79,12 +79,12 @@ class Robot():
 		else:
 			print ("\033[92m Vision sensor connected.")
 
-		#Starting laser sensor
+#		#Starting laser sensor
 		res, laser_handle = vrep.simxGetObjectHandle(self.clientID, "fastHokuyo", vrep.simx_opmode_oneshot_wait)
-		if(res != vrep.simx_return_ok):
-			print ("\033[93m Laser not connected.")
-		else:
-			print ("\033[92m Laser connected.")
+#		if(res != vrep.simx_return_ok):
+#			print ("\033[93m Laser not connected.")
+#		else:
+#			print ("\033[92m Laser connected.")
 
 		return us_handle, vision_handle, laser_handle
 
